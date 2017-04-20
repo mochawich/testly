@@ -1,26 +1,8 @@
-import uuid
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class UUIDModel(models.Model):
-    """
-    Base model that has necessary fields. Its primary key is a UUID field instead of the default AutoField.
-    """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created_at = models.DateTimeField(auto_now_add=True, null=True, db_index=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, db_index=True)
-
-    class Meta:
-        abstract = True
-
-    @classmethod
-    def exists(cls, *args, **kwargs):
-        return cls.objects.filter(*args, **kwargs).exists()
-
-
-class TestRun(UUIDModel):
+class TestRun(models.Model):
     """
     Record for a test run request.
     """
@@ -47,12 +29,23 @@ class TestRun(UUIDModel):
                                          help_text=_('Interface between the test executor web application '
                                                      'and the Python test runner'))
     logs = models.TextField(blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True, null=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, db_index=True)
 
     def start(self):
         self.status = TestRun.RUNNING
         self.save()
 
     def finish(self, out, err):
-        self.logs = f'Stdout:\n{out}\n\Strerr:\n{err}'
-        self.status = TestRun.SUCCESS if not err else TestRun.FAILURE
+        out = out.decode()
+        err = err.decode()
+        self.logs = f'Stdout:\n{out}\nStderr:\n{err}'
+        if err or '=================================== FAILURES ===================================' in out:
+            self.status = TestRun.FAILURE
+        else:
+            self.status = TestRun.SUCCESS
         self.save()
+
+    @classmethod
+    def exists(cls, *args, **kwargs):
+        return cls.objects.filter(*args, **kwargs).exists()

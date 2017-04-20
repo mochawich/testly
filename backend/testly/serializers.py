@@ -9,7 +9,7 @@ from .models import TestRun
 class TestRunSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TestRun
-        fields = ('url', 'id', 'status', 'requested_by', 'path', 'environment', 'interface', 'logs')
+        fields = ('url', 'id', 'status', 'requested_by', 'path', 'environment', 'interface', 'logs', 'created_at')
 
     def validate_environment(self, environment):
         if TestRun.exists(environment=environment, status__in=[TestRun.PENDING, TestRun.RUNNING]):

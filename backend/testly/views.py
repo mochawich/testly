@@ -7,7 +7,7 @@ from .serializers import TestRunSerializer
 
 
 class TestRunViewSet(viewsets.ModelViewSet):
-    queryset = TestRun.objects.all()
+    queryset = TestRun.objects.all().order_by('-created_at')
     serializer_class = TestRunSerializer
 
 
