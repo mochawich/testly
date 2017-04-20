@@ -1,0 +1,1 @@
+# Testly - Angular 1.x TypeScript Example

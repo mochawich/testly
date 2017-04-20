@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./build",
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "types": [
+            "angular"
+        ],
+        "moduleResolution": "node",
+        "allowJs": true
+    },
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.js"
+    ]
+}
