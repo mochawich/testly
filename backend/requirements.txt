@@ -10,6 +10,3 @@ psycopg2==2.7.1
 pytest
 pytest-django
 flake8
-
-
-

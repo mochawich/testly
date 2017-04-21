@@ -1,0 +1,53 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-01
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+      - "8000:8000"
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html:ro
+      - ./config/nginx.conf:/etc/nginx/conf.d/testly.conf
+
+  backend:
+    build: ./backend
+    command: gunicorn testly.wsgi -c /code/config/gunicorn.py
+    container_name: backend-01
+    depends_on:
+      - db
+      - redis
+    environment:
+     - REDIS_URL=tcp://redis:6379
+    links:
+      - redis:redis
+    volumes:
+      - ./config/gunicorn.py:/code/config/gunicorn.py
+
+  worker:
+    build: ./backend
+    command: circusd /code/config/circus.ini
+    container_name: worker-01
+    environment:
+     - REDIS_URL=tcp://redis:6379
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis:redis
+    volumes:
+      - ./config/circus.ini:/code/config/circus.ini
+
+  db:
+    image: postgres:latest
+    container_name: db-01
+    environment:
+     - POSTGRES_USER=testly_client
+     - POSTGRES_PASSWORD=testly
+     - POSTGRES_DB=testly
+
+  redis:
+    image: redis:latest
+    container_name: redis-01
