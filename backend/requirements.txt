@@ -1,6 +1,5 @@
 # App
 django-cors-headers==2.0.0
-django-dotenv==1.4.1
 django-redis==4.7.0
 django-rq==0.9.5
 django==1.11.0

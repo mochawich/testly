@@ -6,8 +6,6 @@ import os
 import sys
 from distutils.util import strtobool as _strtobool
 
-from config import load_env
-
 
 def strtobool(val):
     """
@@ -19,14 +17,9 @@ def strtobool(val):
 TY_ENV = os.environ.get('TY_ENV', 'local')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-print('TY_ENV:', TY_ENV)
-
-# Load environment variables
-load_env(env_name=TY_ENV)
-
 # Security settings
 
-ALLOWED_HOSTS = ['local.testly', 'localhost']
+ALLOWED_HOSTS = ['local.testly', 'localhost', 'backend']
 CORS_ORIGIN_ALLOW_ALL = True
 DEBUG = strtobool(os.environ.get('TY_DEBUG'))
 SECRET_KEY = 'g4&zs6a2zb7hx623=k)%c+3bpig#t084o91)n%@z-x$8dms92n'
@@ -82,20 +75,20 @@ DATABASES = {
         'NAME': os.environ.get('TY_DB_NAME', 'testly'),
         'USER': os.environ.get('TY_DB_USER', 'testly_client'),
         'PASSWORD': os.environ.get('TY_DB_PASS', 'testly'),
-        'HOST': os.environ.get('TY_DB_HOST', 'localhost'),
+        'HOST': os.environ.get('TY_DB_HOST', 'db'),
         'PORT': os.environ.get('TY_DB_PORT', '5432'),
     }
 }
 
 # Cache
 
-REDIS_PORT = os.environ.get('REDIS_PORT', 'tcp://localhost:6379').replace('tcp', 'redis')
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 
 
 def gen_redis_conf(db=0):
     return {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': '{redis_port}/{db}'.format(redis_port=REDIS_PORT, db=db),
+        'LOCATION': '{redis_url}/{db}'.format(redis_url=REDIS_URL, db=db),
         'TIMEOUT': 300,
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
