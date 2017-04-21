@@ -16,6 +16,6 @@ class AssetsViewSet(viewsets.ViewSet):
         data = {
             'interfaces': dict(TestRun.Interface),
             'statuses': dict(TestRun.Status),
-            'available_tests': os.listdir(settings.TESTS_DIR)
+            'available_tests': ['.'] + [item for item in os.listdir(settings.TESTS_DIR) if not item.startswith('_')]
         }
         return Response(data)

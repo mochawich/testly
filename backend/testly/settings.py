@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': os.environ.get('TY_DB_NAME', 'testly'),
         'USER': os.environ.get('TY_DB_USER', 'testly_client'),
         'PASSWORD': os.environ.get('TY_DB_PASS', 'testly'),
-        'HOST': os.environ.get('TY_DB_HOST', 'db'),
+        'HOST': os.environ.get('TY_DB_HOST', 'localhost'),
         'PORT': os.environ.get('TY_DB_PORT', '5432'),
     }
 }
@@ -115,7 +115,7 @@ RQ_QUEUE_DEFAULT = 'testly-default'
 RQ_QUEUES = {
     RQ_QUEUE_DEFAULT: {
         'USE_REDIS_CACHE': WORKER_CACHE_ALIAS,
-        'DEFAULT_TIMEOUT': 60,
+        'DEFAULT_TIMEOUT': 300,
     },
 }
 
