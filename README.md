@@ -10,8 +10,13 @@ This is an example of a full stack application consisting of
 
 ## Deployment using Docker
 ```
+git clone https://github.com/mochawich/testly.git
+cd testly
 docker-compose up
 ```
+
+Open http://localhost:8080
+
 
 # Frontend
 Angular 1.x, TypeScript, and Webpack
