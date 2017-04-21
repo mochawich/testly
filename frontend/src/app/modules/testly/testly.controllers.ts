@@ -54,7 +54,7 @@ export class RunsController implements ng.IController {
     };
     public promise;
     public selected = [];
-    public autoRefresh = false;
+    public autoRefresh = true;
     private autoRefreshRate = 5000;
     private timer = null;
 
