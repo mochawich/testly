@@ -4,7 +4,7 @@ import './modules/testly/testly.module';
 
 class App implements ng.IDirective {
     restrict = 'E';
-    templateUrl = 'src/app/app.html';
+    templateUrl = 'templates/app.html';
     controller = 'AppCtrl';
     controllerAs = 'app';
 
@@ -25,9 +25,9 @@ export default angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'md
     .config(($routeProvider) => {
         $routeProvider
             .when('/', {
-                templateUrl: 'src/app/modules/testly/testly.templates/runs.html'
+                templateUrl: 'templates/testly/runs.html'
             })
             .when('/run/:runId', {
-                templateUrl: 'src/app/modules/testly/testly.templates/run.html'
+                templateUrl: 'templates/testly/run.html'
             });
     });

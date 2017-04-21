@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const process = require('process');
 
@@ -20,7 +21,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
@@ -57,8 +58,11 @@ module.exports = {
             }
         }),
         new webpack.DefinePlugin({
-            'API_URL': JSON.stringify(process.env.API_URL || 'http://local.testly:8004')
-        })
+            'API_URL': JSON.stringify(process.env.API_URL || 'http://localhost:8000')
+        }),
+        new CopyWebpackPlugin([
+            { from: './templates', to: 'templates' }
+        ])
     ],
 
     devtool: 'inline-source-map',

@@ -1,0 +1,107 @@
+<style>
+    .css-form input.ng-invalid.ng-touched, .css-form.ng-submitted input.ng-invalid {
+        border: 1px solid red;
+    }
+
+    div.danger {
+        font-size: 10px;
+        color: red;
+        display: block;
+    }
+
+    tr[ng-class=success] {
+        background-color: lightgreen;
+    }
+
+    tr[ng-class=failure] {
+        background-color: red;
+    }
+</style>
+
+<section ng-controller="RunsController as ctrl">
+
+    <md-subheader>Test Runs</md-subheader>
+
+    <form name="newRunForm" class="css-form" novalidate>
+        <md-table-container>
+            <table md-table ng-model="ctrl.selected" md-row-select md-progress="ctrl.promise">
+                <thead md-head>
+                <tr md-row>
+                    <th md-column>ID</th>
+                    <th md-column>Requested By</th>
+                    <th md-column>Path</th>
+                    <th md-column>Environment</th>
+                    <th md-column>Interface</th>
+                    <th md-column>Status</th>
+                </tr>
+                <tr md-row>
+                    <td md-cell>
+                        <md-button type="submit" class="md-primary md-raised" ng-click="ctrl.addRun()">Add</md-button>
+                        <md-button class="md-accent md-raised" ng-click="ctrl.reset()">Reset</md-button>
+                    </td>
+                    <td md-cell>
+                        <input type="text" name="requestedBy" ng-model="ctrl.formData.requested_by" required>
+                        <div ng-show="newRunForm.$submitted || newRunForm.requestedBy.$touched">
+                            <div class="danger" ng-show="ctrl.errors.requested_by">{{ ctrl.errors.requested_by[0] }}
+                            </div>
+                            <div class="danger" ng-show="newRunForm.requestedBy.$error.required">
+                                Enter your name
+                            </div>
+                        </div>
+                    </td>
+                    <td md-cell>
+                        <md-autocomplete md-input-name="path" md-selected-item="ctrl.formData.path"
+                                         md-item-text="item" md-search-text="searchText"
+                                         md-items="item in ctrl.service.assets.available_tests">
+                            <span md-highlight-text="searchText">{{ item }}</span>
+                        </md-autocomplete>
+                    </td>
+                    <td md-cell>
+                        <input type="number" name="environment" ng-model="ctrl.formData.environment" integer min="1"
+                               max="100" required>
+                        <div ng-show="newRunForm.$submitted || newRunForm.environment.$touched">
+                            <div class="danger" ng-show="ctrl.errors.environment">{{ ctrl.errors.environment[0] }}
+                            </div>
+                            <div class="danger"
+                                 ng-show="newRunForm.environment.$error.required || newRunForm.environment.$error.min || newRunForm.environment.$error.max">
+                                Input an integer between 1 and 100
+                            </div>
+                        </div>
+                    </td>
+                    <td md-cell>
+                        <md-input-container>
+                            <md-select ng-model="ctrl.formData.interface" placeholder="Select an interface" required>
+                                <md-option ng-value="opt"
+                                           ng-repeat="(opt, name) in ctrl.service.assets.interfaces">{{ name }}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </td>
+                    <td md-cell></td>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="run in ctrl.runs" ng-class="{{ run.status_display | lowercase }}"
+                    md-on-select="ctrl.onSelect" md-select="run" md-select-id="id" md-auto-select>
+                    <td md-cell>{{ run.id }}</td>
+                    <td md-cell>{{ run.requested_by }}</td>
+                    <td md-cell>{{ run.path }}</td>
+                    <td md-cell>{{ run.environment }}</td>
+                    <td md-cell>{{ run.interface_display }}</td>
+                    <td md-cell>{{ run.status_display }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+    </form>
+
+    <md-table-pagination md-limit="ctrl.query.limit" md-limit-options="[5, 10, 15]" md-page="ctrl.query.page"
+                         md-total="{{ ctrl.count }}" md-on-paginate="ctrl.getRuns">
+    </md-table-pagination>
+
+    <div layout="row" layout-align="end none">
+        <md-checkbox ng-model="ctrl.autoRefresh" ng-change="ctrl.togglePulling()">Auto Refresh
+        </md-checkbox>
+    </div>
+
+</section>

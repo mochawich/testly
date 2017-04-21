@@ -1,0 +1,26 @@
+<style>
+    section.run {
+        margin: 16px;
+    }
+
+    pre {
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+    }
+</style>
+
+<section ng-controller="RunController as ctrl" class="run">
+    <md-subheader>
+        <span><a href="/">Test Runs</a></span> >
+        <span>Test Run: {{ ctrl.id }} ({{ ctrl.run.status_display }})</span>
+    </md-subheader>
+
+    <md-input-container ng-class="{'md-block': ctrl.isBlockAttr(attr)}" ng-repeat="attr in ctrl.attrs">
+        <label>{{ attr }}</label>
+        <input ng-if="!ctrl.isBlockAttr(attr)" ng-model="ctrl.run[attr]" disabled>
+        <pre ng-if="ctrl.isBlockAttr(attr)"><br><br><code>{{ ctrl.run[attr] }}</code></pre>
+    </md-input-container>
+</section>

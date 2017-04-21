@@ -1,44 +1,45 @@
 {
-    "name": "testly",
-    "version": "1.0.0",
-    "description": "Testly - Webpack Angular 1.x TypeScript Example",
-    "main": "index.js",
-    "scripts": {
-        "start": "webpack-dev-server --progress",
-        "build": "webpack"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mochawich/testly.git"
-    },
-    "keywords": [
-        "angular",
-        "typescript",
-        "webpack"
-    ],
-    "author": "Mohamad Nour Chawich",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/mochawich/testly/issues"
-    },
-    "homepage": "https://github.com/mochawich/testly#readme",
-    "devDependencies": {
-        "@types/angular": "^1.6.9",
-        "awesome-typescript-loader": "^3.1.2",
-        "css-loader": "^0.28.0",
-        "extract-text-webpack-plugin": "^2.1.0",
-        "html-webpack-plugin": "^2.28.0",
-        "typescript": "^2.2.1",
-        "webpack": "^2.2.1",
-        "webpack-dev-server": "^2.4.1"
-    },
-    "dependencies": {
-        "angular": "^1.5.11",
-        "angular-animate": "^1.6.4",
-        "angular-aria": "^1.6.4",
-        "angular-material": "^1.1.3",
-        "angular-material-data-table": "^0.10.10",
-        "angular-messages": "^1.6.4",
-        "angular-route": "^1.6.4"
-    }
+  "name": "testly",
+  "version": "1.0.0",
+  "description": "Testly - Webpack Angular 1.x TypeScript Example",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --progress",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mochawich/testly.git"
+  },
+  "keywords": [
+    "angular",
+    "typescript",
+    "webpack"
+  ],
+  "author": "Mohamad Nour Chawich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mochawich/testly/issues"
+  },
+  "homepage": "https://github.com/mochawich/testly#readme",
+  "devDependencies": {
+    "@types/angular": "^1.6.9",
+    "awesome-typescript-loader": "^3.1.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^2.28.0",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.11",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.3",
+    "angular-material-data-table": "^0.10.10",
+    "angular-messages": "^1.6.4",
+    "angular-route": "^1.6.4"
+  }
 }
