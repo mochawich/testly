@@ -9,6 +9,10 @@
         display: block;
     }
 
+    tr[ng-class=running] {
+        background-color: lightblue;
+    }
+
     tr[ng-class=success] {
         background-color: lightgreen;
     }
@@ -50,11 +54,18 @@
                         </div>
                     </td>
                     <td md-cell>
-                        <md-autocomplete md-input-name="path" md-selected-item="ctrl.formData.path"
-                                         md-item-text="item" md-search-text="searchText"
-                                         md-items="item in ctrl.service.assets.available_tests">
-                            <span md-highlight-text="searchText">{{ item }}</span>
-                        </md-autocomplete>
+                        <datalist id="available_tests">
+                            <option ng-repeat="item in ctrl.service.assets.available_tests" value="{{item}}">
+                        </datalist>
+                        <input type="text" name="path" ng-model="ctrl.formData.path" list="available_tests" required>
+                        <div ng-show="newRunForm.$submitted || newRunForm.path.$touched">
+                            <div class="danger" ng-show="ctrl.errors.path">{{ ctrl.errors.path[0] }}
+                            </div>
+                            <div class="danger"
+                                 ng-show="newRunForm.path.$error.required">
+                                Input valid path relative to test directory
+                            </div>
+                        </div>
                     </td>
                     <td md-cell>
                         <input type="number" name="environment" ng-model="ctrl.formData.environment" integer min="1"
