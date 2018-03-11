@@ -12,6 +12,8 @@ This is an example of a full stack application consisting of
 ```
 git clone https://github.com/mochawich/testly.git
 cd testly
+docker-compose build
+docker-compose run backend python manage.py migrate
 docker-compose up
 ```
 
@@ -48,8 +50,8 @@ python manage.py runserver
 ```
 
 ## Database Migrations
-Run this directly after the first deployment. Also after making changes to the backend models.
+Run this on initial setup and after making changes to the backend models.
 
 ```
-docker exec -it backend-01 python manage.py migrate
+docker-compose run backend python manage.py migrate
 ```

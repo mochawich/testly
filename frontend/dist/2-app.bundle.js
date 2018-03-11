@@ -202,7 +202,7 @@ var RunsController = (function () {
             page: 1,
         };
         this.selected = [];
-        this.autoRefresh = true;
+        this.autoRefresh = false;
         this.autoRefreshRate = 5000;
         this.timer = null;
         // Add run form properties

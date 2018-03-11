@@ -1,6 +1,6 @@
 # App
 django-cors-headers==2.0.0
-django-redis==4.7.0
+django-redis==4.9.0
 django-rq==0.9.5
 django==1.11.0
 djangorestframework==3.6.2

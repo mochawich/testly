@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': os.environ.get('TY_DB_NAME', 'testly'),
         'USER': os.environ.get('TY_DB_USER', 'testly_client'),
         'PASSWORD': os.environ.get('TY_DB_PASS', 'testly'),
-        'HOST': os.environ.get('TY_DB_HOST', 'localhost'),
+        'HOST': os.environ.get('TY_DB_HOST', 'db'),
         'PORT': os.environ.get('TY_DB_PORT', '5432'),
     }
 }
