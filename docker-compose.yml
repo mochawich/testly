@@ -1,21 +1,18 @@
 version: '3'
 services:
-  nginx:
-    image: nginx:latest
+  frontend:
+    build:
+      context: ./frontend
+    image: "mochawich/testly-frontend:${BUILD_NUM:-development}"
     depends_on:
       - backend
     ports:
-      - "8080:80"
-      - "8000:8000"
-    volumes:
-      - ./frontend/dist:/usr/share/nginx/html:ro
-      - ./config/nginx.conf:/etc/nginx/conf.d/testly.conf
+      - "80:80"
 
   backend:
     build:
       context: ./backend
-    image: "testly-backend:${BUILD_NUM:-development}"
-    command: gunicorn testly.wsgi -c /code/config/gunicorn.py
+    image: "mochawich/testly-backend:${BUILD_NUM:-development}"
     depends_on:
       - db
       - redis
@@ -23,11 +20,11 @@ services:
      - REDIS_URL=tcp://redis:6379
     links:
       - redis:redis
-    volumes:
-      - ./config/gunicorn.py:/code/config/gunicorn.py
+    ports:
+      - "8000:8000"
 
   worker:
-    image: "testly-backend:${BUILD_NUM:-development}"
+    image: "mochawich/testly-backend:${BUILD_NUM:-development}"
     command: python manage.py rqworker testly-default
     environment:
      - REDIS_URL=tcp://redis:6379
