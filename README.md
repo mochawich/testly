@@ -19,6 +19,8 @@ docker-compose up
 
 Open http://localhost:8080
 
+## Deployment on Kubernetes
+Check the [instructions here](kubernetes)
 
 # Frontend
 Angular 1.x, TypeScript, and Webpack
