@@ -39,6 +39,9 @@ export class RunController implements ng.IController {
     };
 }
 
+interface IRunsScope extends ng.IScope {
+    newRunForm: ng.IFormController;
+}
 
 /**
  * Controller responsible for list of test runs.
@@ -64,7 +67,7 @@ export class RunsController implements ng.IController {
 
     static $inject = ['$scope', '$location', 'TestlyService'];
 
-    constructor(private $scope: ng.IScope, private $location, private service: TestlyService) {
+    constructor(private $scope: IRunsScope, private $location, private service: TestlyService) {
         console.log('Initiated RunsController');
         this.getRuns();
     }
