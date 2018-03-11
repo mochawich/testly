@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Security settings
 
-ALLOWED_HOSTS = ['local.testly', 'localhost', 'backend']
+ALLOWED_HOSTS = ['local.testly', 'localhost', 'backend', 'backend.k8.nour.space']
 CORS_ORIGIN_ALLOW_ALL = True
 DEBUG = strtobool(os.environ.get('TY_DEBUG'))
 SECRET_KEY = 'g4&zs6a2zb7hx623=k)%c+3bpig#t084o91)n%@z-x$8dms92n'

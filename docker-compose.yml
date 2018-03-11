@@ -3,7 +3,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: "mochawich/testly-frontend:${BUILD_NUM:-development}"
+    image: "${REPO:-mochawich}/testly-frontend:${BUILD_NUM:-development}"
     depends_on:
       - backend
     ports:
@@ -12,7 +12,7 @@ services:
   backend:
     build:
       context: ./backend
-    image: "mochawich/testly-backend:${BUILD_NUM:-development}"
+    image: "${REPO:-mochawich}/testly-backend:${BUILD_NUM:-development}"
     depends_on:
       - db
       - redis
@@ -24,7 +24,7 @@ services:
       - "8000:8000"
 
   worker:
-    image: "mochawich/testly-backend:${BUILD_NUM:-development}"
+    image: "${REPO:-mochawich}/testly-backend:${BUILD_NUM:-development}"
     command: python manage.py rqworker testly-default
     environment:
      - REDIS_URL=tcp://redis:6379
